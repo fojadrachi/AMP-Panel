@@ -9,201 +9,413 @@
 
   <style>
     :root{
-      --bg0:#0b0f17;
-      --bg1:#0f1624;
-      --card:#121b2c;
-      --card2:#0e1524;
-      --text:#e7eefc;
-      --muted:#a6b3d1;
+      --bg:#070b14;
+      --bg-soft:#0d1322;
+      --panel:rgba(15,22,37,.72);
+      --panel-strong:rgba(18,26,44,.9);
+      --text:#edf3ff;
+      --muted:#9eacc9;
       --line:rgba(255,255,255,.08);
-      --glow:rgba(120,160,255,.22);
+      --line-strong:rgba(255,255,255,.14);
+
       --accent:#7aa2ff;
       --accent2:#ff4fd8;
-      --good:#3ee6a8;
-      --warn:#ffcc66;
+      --accent3:#3ee6a8;
+
+      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --radius-xl:26px;
+      --radius-lg:20px;
+      --radius-md:14px;
     }
 
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     html,body{height:100%}
+
     body{
       margin:0;
-      font: 500 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font:500 16px/1.55 Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(122,162,255,.22), transparent 60%),
-        radial-gradient(900px 500px at 90% 0%, rgba(255,79,216,.18), transparent 55%),
-        radial-gradient(700px 450px at 50% 110%, rgba(62,230,168,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
+        radial-gradient(900px 500px at 15% -10%, rgba(122,162,255,.22), transparent 60%),
+        radial-gradient(700px 450px at 100% 0%, rgba(255,79,216,.15), transparent 58%),
+        radial-gradient(700px 500px at 50% 120%, rgba(62,230,168,.09), transparent 60%),
+        linear-gradient(180deg, #070b14 0%, #0b1020 45%, #0d1322 100%);
       overflow-x:hidden;
     }
 
-    .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      padding:48px 18px 64px;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size:36px 36px;
+      mask-image:radial-gradient(circle at center, black 45%, transparent 95%);
+      opacity:.25;
     }
 
-    header{
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      padding:28px 18px 70px;
+    }
+
+    .hero{
+      position:relative;
+      padding:26px;
+      border:1px solid var(--line);
+      border-radius:32px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025)),
+        rgba(10,14,24,.72);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow:hidden;
+      margin-bottom:22px;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:auto -10% -35% auto;
+      width:360px;
+      height:360px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(122,162,255,.22), transparent 65%);
+      pointer-events:none;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:-20% auto auto -10%;
+      width:280px;
+      height:280px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(255,79,216,.14), transparent 68%);
+      pointer-events:none;
+    }
+
+    .topbar{
       display:flex;
-      align-items:flex-start;
+      align-items:center;
       justify-content:space-between;
       gap:18px;
-      margin-bottom:22px;
+      margin-bottom:34px;
+      position:relative;
+      z-index:1;
     }
 
     .brand{
       display:flex;
-      gap:14px;
       align-items:center;
+      gap:16px;
+      min-width:0;
     }
 
     .logo{
-      width:44px;height:44px;border-radius:14px;
+      width:54px;
+      height:54px;
+      border-radius:18px;
       background:
-        radial-gradient(18px 18px at 30% 30%, rgba(255,255,255,.25), transparent 60%),
-        linear-gradient(135deg, rgba(122,162,255,1), rgba(255,79,216,1));
-      box-shadow: 0 12px 35px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.08) inset;
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 40%),
+        linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:
+        0 14px 35px rgba(0,0,0,.35),
+        0 0 0 1px rgba(255,255,255,.08) inset,
+        0 0 35px rgba(122,162,255,.24);
       flex:0 0 auto;
     }
 
-    h1{
+    .brand h1{
       margin:0;
-      font-size: clamp(20px, 3vw, 28px);
-      letter-spacing:.2px;
+      font-size:clamp(24px, 4vw, 38px);
+      line-height:1.05;
+      letter-spacing:-.03em;
     }
+
     .sub{
-      margin-top:4px;
+      margin-top:8px;
       color:var(--muted);
-      font-weight:500;
-      font-size:14px;
+      max-width:700px;
+      font-size:15px;
     }
 
-    .right{
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-
-    .pill{
+    .status-pill{
       display:inline-flex;
-      gap:8px;
       align-items:center;
-      padding:10px 12px;
+      gap:10px;
+      padding:12px 14px;
       border-radius:999px;
-      background: rgba(255,255,255,.04);
       border:1px solid var(--line);
-      color:var(--muted);
+      background:rgba(255,255,255,.04);
+      color:#dce8ff;
       backdrop-filter: blur(10px);
-      user-select:none;
+      white-space:nowrap;
     }
+
     .dot{
-      width:9px;height:9px;border-radius:999px;
-      background: var(--good);
-      box-shadow: 0 0 0 4px rgba(62,230,168,.10);
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      background:var(--accent3);
+      box-shadow:
+        0 0 0 4px rgba(62,230,168,.12),
+        0 0 18px rgba(62,230,168,.45);
+      flex:0 0 auto;
+    }
+
+    .hero-content{
+      display:grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap:18px;
+      align-items:end;
+      position:relative;
+      z-index:1;
+    }
+
+    .hero-text h2{
+      margin:0 0 10px;
+      font-size:clamp(28px, 5vw, 52px);
+      line-height:1.02;
+      letter-spacing:-.04em;
+    }
+
+    .hero-text p{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      max-width:760px;
+    }
+
+    .hero-actions{
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:48px;
+      padding:0 16px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      transition:.18s ease;
+      box-shadow:0 10px 28px rgba(0,0,0,.25);
+    }
+
+    .hero-btn:hover{
+      transform:translateY(-1px);
+      border-color:var(--line-strong);
+      background:rgba(255,255,255,.08);
+    }
+
+    .hero-btn.primary{
+      background:linear-gradient(135deg, rgba(122,162,255,.22), rgba(255,79,216,.18));
+      border-color:rgba(122,162,255,.28);
+    }
+
+    .search-wrap{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin:20px 0 24px;
     }
 
     .search{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      margin:18px 0 22px;
+      position:relative;
+      flex:1;
     }
+
     .search input{
       width:100%;
-      padding:14px 14px;
-      border-radius:14px;
+      min-height:56px;
+      padding:0 18px 0 50px;
+      border-radius:18px;
       border:1px solid var(--line);
-      background: rgba(0,0,0,.25);
+      background:rgba(255,255,255,.045);
       color:var(--text);
       outline:none;
-      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+      transition:border-color .18s ease, background .18s ease, transform .18s ease;
     }
-    .search input::placeholder{color:rgba(166,179,209,.75)}
+
+    .search input:focus{
+      border-color:rgba(122,162,255,.35);
+      background:rgba(255,255,255,.06);
+    }
+
+    .search svg{
+      position:absolute;
+      left:16px;
+      top:50%;
+      transform:translateY(-50%);
+      opacity:.7;
+      pointer-events:none;
+    }
+
+    .search input::placeholder{
+      color:rgba(158,172,201,.72);
+    }
+
     .btn{
-      padding:14px 14px;
-      border-radius:14px;
+      min-height:56px;
+      padding:0 18px;
+      border-radius:18px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
+      background:rgba(255,255,255,.05);
       color:var(--text);
       cursor:pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+      transition:.18s ease;
+      box-shadow:var(--shadow);
     }
-    .btn:hover{border-color:rgba(255,255,255,.16)}
-    .btn:active{transform: translateY(1px)}
+
+    .btn:hover{
+      transform:translateY(-1px);
+      border-color:var(--line-strong);
+      background:rgba(255,255,255,.07);
+    }
 
     .grid{
       display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap:14px;
+      grid-template-columns:repeat(12, 1fr);
+      gap:16px;
     }
 
     .card{
-      grid-column: span 4;
+      grid-column:span 4;
       position:relative;
-      border-radius:18px;
-      padding:16px 16px 14px;
-      background:
-        radial-gradient(600px 220px at 0% 0%, rgba(122,162,255,.12), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      display:flex;
+      flex-direction:column;
+      min-height:220px;
+      padding:18px;
+      border-radius:var(--radius-xl);
       border:1px solid var(--line);
-      box-shadow:
-        0 18px 50px rgba(0,0,0,.35),
-        0 0 0 1px rgba(0,0,0,.25) inset;
+      background:
+        radial-gradient(500px 180px at 0% 0%, rgba(122,162,255,.12), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
       overflow:hidden;
-      transition: transform .18s ease, border-color .18s ease;
+      transition:transform .18s ease, border-color .18s ease, background .18s ease;
       cursor:pointer;
-    }
-    .card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.16);
+      isolation:isolate;
     }
 
-    .card::after{
+    .card::before{
       content:"";
       position:absolute;
-      inset:-2px;
-      background: radial-gradient(500px 160px at 20% 0%, var(--glow), transparent 60%);
-      opacity:.25;
+      inset:auto -20% -35% auto;
+      width:190px;
+      height:190px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(255,255,255,.08), transparent 70%);
+      opacity:.35;
+      z-index:0;
       pointer-events:none;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      border-color:rgba(255,255,255,.16);
+      background:
+        radial-gradient(500px 180px at 0% 0%, rgba(122,162,255,.16), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
     }
 
     .top{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap:10px;
+      gap:14px;
       position:relative;
       z-index:1;
     }
 
+    .card-icon{
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.05);
+      margin-bottom:14px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
     .name{
       margin:0;
-      font-size:16px;
-      letter-spacing:.2px;
+      font-size:19px;
+      line-height:1.2;
+      letter-spacing:-.02em;
     }
+
     .desc{
-      margin:6px 0 0;
+      margin:8px 0 0;
       color:var(--muted);
-      font-size:13px;
-      min-height: 34px;
+      font-size:14px;
+      max-width:95%;
     }
 
     .tag{
       flex:0 0 auto;
-      font-size:12px;
-      padding:6px 10px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:74px;
+      padding:7px 11px;
       border-radius:999px;
       border:1px solid var(--line);
-      color:rgba(231,238,252,.9);
-      background: rgba(0,0,0,.22);
+      background:rgba(0,0,0,.22);
+      color:#eef4ff;
+      font-size:12px;
+      text-transform:lowercase;
+      letter-spacing:.02em;
     }
-    .tag.panel{border-color: rgba(122,162,255,.25)}
-    .tag.game{border-color: rgba(255,79,216,.22)}
-    .tag.admin{border-color: rgba(62,230,168,.20)}
-    .tag.misc{border-color: rgba(255,204,102,.20)}
+
+    .tag.panel{border-color:rgba(122,162,255,.28)}
+    .tag.game{border-color:rgba(255,79,216,.24)}
+    .tag.admin{border-color:rgba(62,230,168,.24)}
+    .tag.misc{border-color:rgba(255,204,102,.24)}
+
+    .meta{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:16px;
+      color:rgba(237,243,255,.72);
+      font-size:13px;
+      position:relative;
+      z-index:1;
+    }
+
+    .meta .live-dot{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:var(--accent3);
+      box-shadow:0 0 10px rgba(62,230,168,.35);
+    }
 
     .linkrow{
-      margin-top:12px;
+      margin-top:auto;
+      padding-top:18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -213,90 +425,209 @@
     }
 
     .url{
-      color:rgba(231,238,252,.88);
+      color:rgba(237,243,255,.88);
       font-size:13px;
-      text-decoration:none;
-      border-bottom: 1px dashed rgba(255,255,255,.15);
-      padding-bottom:1px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      max-width:62%;
+      border-bottom:1px dashed rgba(255,255,255,.16);
+      padding-bottom:2px;
     }
-    .url:hover{border-bottom-color: rgba(255,255,255,.35)}
+
+    .url:hover{
+      border-bottom-color:rgba(255,255,255,.38);
+    }
 
     .go{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      font-size:13px;
-      color:var(--text);
-      text-decoration:none;
-      padding:10px 12px;
-      border-radius:12px;
-      background: rgba(255,255,255,.06);
+      padding:11px 13px;
+      border-radius:14px;
       border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      font-size:13px;
+      transition:.18s ease;
+      white-space:nowrap;
     }
-    .go:hover{border-color: rgba(255,255,255,.16)}
-    .go svg{opacity:.9}
+
+    .go:hover{
+      border-color:rgba(255,255,255,.16);
+      background:rgba(255,255,255,.09);
+    }
+
+    .go svg{
+      opacity:.9;
+    }
 
     footer{
-      margin-top:26px;
-      color:rgba(166,179,209,.85);
-      font-size:13px;
+      margin-top:28px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
       display:flex;
       justify-content:space-between;
-      gap:12px;
+      gap:14px;
       flex-wrap:wrap;
-      border-top:1px solid var(--line);
-      padding-top:16px;
+      color:rgba(158,172,201,.9);
+      font-size:14px;
+    }
+
+    footer a{
+      color:#dce8ff;
+      border-bottom:1px dashed rgba(255,255,255,.18);
+    }
+
+    footer a:hover{
+      border-bottom-color:rgba(255,255,255,.4);
+    }
+
+    .muted{
+      color:var(--muted);
     }
 
     @media (max-width: 980px){
-      .card{grid-column: span 6;}
+      .hero-content{
+        grid-template-columns:1fr;
+        align-items:start;
+      }
+
+      .hero-actions{
+        justify-content:flex-start;
+      }
+
+      .card{
+        grid-column:span 6;
+      }
     }
-    @media (max-width: 620px){
-      header{flex-direction:column}
-      .right{justify-content:flex-start}
-      .card{grid-column: span 12;}
+
+    @media (max-width: 700px){
+      .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .search-wrap{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .card{
+        grid-column:span 12;
+        min-height:unset;
+      }
+
+      .url{
+        max-width:52%;
+      }
+    }
+
+    @media (max-width: 520px){
+      .wrap{
+        padding:16px 14px 48px;
+      }
+
+      .hero{
+        padding:18px;
+        border-radius:24px;
+      }
+
+      .brand{
+        align-items:flex-start;
+      }
+
+      .logo{
+        width:48px;
+        height:48px;
+      }
+
+      .linkrow{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .url{
+        max-width:100%;
+      }
+
+      .go{
+        justify-content:center;
+      }
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <h1>fojadrachi.com</h1>
-          <div class="sub">Service-Übersicht — klick auf eine Karte, um die Subdomain zu öffnen.</div>
-        </div>
-      </div>
 
-      <div class="right">
-        <div class="pill" title="Status ist nur optisch (kein Live-Check).">
+    <section class="hero">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>fojadrachi.com</h1>
+            <div class="sub">Zentrale Übersicht deiner Services, Panels und Projekte.</div>
+          </div>
+        </div>
+
+        <div class="status-pill" title="Nur optische Anzeige, kein Live-Check.">
           <span class="dot" aria-hidden="true"></span>
-          <span>Online</span>
+          <span>Systemstatus: Online</span>
         </div>
       </div>
-    </header>
 
-    <div class="search">
-      <input id="q" type="text" placeholder="Suchen… (z. B. panel, pterodactyl, nextcloud, mc)" autocomplete="off" />
-      <button class="btn" id="reset" type="button">Reset</button>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h2>Alle wichtigen Dienste<br>an einem Ort.</h2>
+          <p>
+            Öffne schnell deine Panels, Game-Server, Verwaltungsseiten und Tools.
+            Übersichtlich, modern und direkt erreichbar.
+          </p>
+        </div>
+
+        <div class="hero-actions">
+          <a class="hero-btn primary" href="#grid">Services ansehen</a>
+          <a class="hero-btn" href="https://discord.gg/79XnsYqet3">Discord</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="search-wrap">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+          <path d="M20 20L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="q" type="text" placeholder="Suche nach panel, mc, docs, status ..." autocomplete="off" />
+      </div>
+      <button class="btn" id="reset" type="button">Suche zurücksetzen</button>
     </div>
 
     <section class="grid" id="grid">
 
-      <!-- ✅ Passe hier nur die URL + Texte an -->
-      <article class="card" data-name="amp panel control" data-url="https://panel.fojadrachi.com">
+      <article class="card" data-name="amp panel control gameserver instanzen" data-url="https://panel.fojadrachi.com">
         <div class="top">
           <div>
+            <div class="card-icon" aria-hidden="true">🎮</div>
             <h3 class="name">AMP Panel</h3>
-            <p class="desc">Gameserver & Instanzen verwalten.</p>
+            <p class="desc">Gameserver, Instanzen und Verwaltung an einem zentralen Ort.</p>
           </div>
           <span class="tag panel">panel</span>
         </div>
+
+        <div class="meta">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>Verwaltung & Kontrolle</span>
+        </div>
+
         <div class="linkrow">
           <a class="url" href="https://panel.fojadrachi.com">panel.fojadrachi.com</a>
-          <a class="go" href="https://panel.fojadrachi.com" aria-label="Öffnen">
+          <a class="go" href="https://panel.fojadrachi.com" aria-label="AMP Panel öffnen">
             Öffnen
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -306,17 +637,25 @@
         </div>
       </article>
 
-      <article class="card" data-name="status uptime monitoring" data-url="https://status.fojadrachi.com">
+      <article class="card" data-name="status uptime monitoring wartung" data-url="https://status.fojadrachi.com">
         <div class="top">
           <div>
+            <div class="card-icon" aria-hidden="true">📈</div>
             <h3 class="name">Status</h3>
-            <p class="desc">Uptime / Monitoring / Wartungen.</p>
+            <p class="desc">Uptime, Monitoring und Status deiner Dienste im Überblick.</p>
           </div>
           <span class="tag misc">status</span>
         </div>
+
+        <div class="meta">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>Monitoring & Übersicht</span>
+        </div>
+
         <div class="linkrow">
-          <a class="url" href="http://status.fojadrachi.com:3001/status/gs">status.fojadrachi.com</a>
-          <a class="go" href="http://status.fojadrachi.com:3001/status/gs">Öffnen
+          <a class="url" href="https://status.fojadrachi.com">status.fojadrachi.com</a>
+          <a class="go" href="https://status.fojadrachi.com" aria-label="Status öffnen">
+            Öffnen
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -325,17 +664,25 @@
         </div>
       </article>
 
-      <article class="card" data-name="nextcloud cloud files" data-url="https://cloud.fojadrachi.com">
+      <article class="card" data-name="casaos home server admin verwaltung" data-url="https://home.fojadrachi.com">
         <div class="top">
           <div>
+            <div class="card-icon" aria-hidden="true">🏠</div>
             <h3 class="name">CasaOS</h3>
-            <p class="desc">CasaOS um Funktionen im hauptsächlichen zu ändern</p>
+            <p class="desc">Verwaltung deines Home-Servers und zentraler Systemfunktionen.</p>
           </div>
-          <span class="tag admin">CasaOS</span>
+          <span class="tag admin">admin</span>
         </div>
+
+        <div class="meta">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>Home-Server Verwaltung</span>
+        </div>
+
         <div class="linkrow">
-          <a class="url" href="http://home.fojadrachi.com:81">home.fojadrachi.com</a>
-          <a class="go" href="http://home.fojadrachi.com:81">Öffnen
+          <a class="url" href="https://home.fojadrachi.com">home.fojadrachi.com</a>
+          <a class="go" href="https://home.fojadrachi.com" aria-label="CasaOS öffnen">
+            Öffnen
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -344,17 +691,25 @@
         </div>
       </article>
 
-      <article class="card" data-name="minecraft mc server map dynmap" data-url="https://mc.fojadrachi.com">
+      <article class="card" data-name="minecraft mc server dynmap spiel" data-url="https://mc.fojadrachi.com">
         <div class="top">
           <div>
+            <div class="card-icon" aria-hidden="true">🧱</div>
             <h3 class="name">Minecraft</h3>
-            <p class="desc">MC-Server / Dynmap / Verwaltung.</p>
+            <p class="desc">Minecraft-Server, Dynmap und weitere spielbezogene Dienste.</p>
           </div>
           <span class="tag game">game</span>
         </div>
+
+        <div class="meta">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>Game-Service</span>
+        </div>
+
         <div class="linkrow">
           <a class="url" href="https://mc.fojadrachi.com">mc.fojadrachi.com</a>
-          <a class="go" href="https://mc.fojadrachi.com">Öffnen
+          <a class="go" href="https://mc.fojadrachi.com" aria-label="Minecraft öffnen">
+            Öffnen
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -363,17 +718,25 @@
         </div>
       </article>
 
-      <article class="card" data-name="grafana dashboard metrics" data-url="https://grafana.fojadrachi.com">
+      <article class="card" data-name="matchit matchmaker cs server" data-url="https://match.fojadrachi.com">
         <div class="top">
           <div>
+            <div class="card-icon" aria-hidden="true">⚔️</div>
             <h3 class="name">MatchIT</h3>
-            <p class="desc">Matchmaker für  Server von Chris</p>
+            <p class="desc">Dein Matchmaker-System für eigene Server und organisierte Matches.</p>
           </div>
-          <span class="tag misc">Matchit</span>
+          <span class="tag misc">matchit</span>
         </div>
+
+        <div class="meta">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>Matchmaking</span>
+        </div>
+
         <div class="linkrow">
           <a class="url" href="https://match.fojadrachi.com">match.fojadrachi.com</a>
-          <a class="go" href="https://match.fojadrachi.com">Öffnen
+          <a class="go" href="https://match.fojadrachi.com" aria-label="MatchIT öffnen">
+            Öffnen
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -382,17 +745,25 @@
         </div>
       </article>
 
-      <article class="card" data-name="support docs wiki" data-url="https://docs.fojadrachi.com">
+      <article class="card" data-name="docs dokumentation wiki howto linksammlung" data-url="https://docs.fojadrachi.com">
         <div class="top">
           <div>
+            <div class="card-icon" aria-hidden="true">📚</div>
             <h3 class="name">Docs</h3>
-            <p class="desc">Doku, How-Tos, Linksammlung.</p>
+            <p class="desc">Dokumentation, How-Tos und nützliche Links an einem Ort.</p>
           </div>
           <span class="tag admin">docs</span>
         </div>
+
+        <div class="meta">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>Wissen & Hilfe</span>
+        </div>
+
         <div class="linkrow">
           <a class="url" href="https://docs.fojadrachi.com">docs.fojadrachi.com</a>
-          <a class="go" href="https://docs.fojadrachi.com">Öffnen
+          <a class="go" href="https://docs.fojadrachi.com" aria-label="Docs öffnen">
+            Öffnen
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               <path d="M10 7h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -405,41 +776,52 @@
 
     <footer>
       <div>© <span id="y"></span> fojadrachi.com</div>
-      <div>Tipp: Du kannst wenn du einen gameserver braucht einfach nachfragen bei <a href="https://discord.gg/79XnsYqet3">discord</a></href></div>
+      <div>
+        <span class="muted">Brauchst du einen Gameserver?</span>
+        Frag einfach über
+        <a href="https://discord.gg/79XnsYqet3">Discord</a>
+        nach.
+      </div>
     </footer>
+
   </div>
 
   <script>
-    // Year
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Click anywhere on card -> open
     document.querySelectorAll(".card").forEach(card => {
       card.addEventListener("click", (e) => {
         const url = card.getAttribute("data-url");
-        // Wenn man direkt auf einen Link klickt, nicht doppelt öffnen
         const isLink = e.target.closest("a");
-        if (!isLink && url) window.location.href = url;
+        if (!isLink && url) {
+          window.location.href = url;
+        }
       });
     });
 
-    // Search filter
     const q = document.getElementById("q");
     const reset = document.getElementById("reset");
     const cards = [...document.querySelectorAll(".card")];
 
     function applyFilter() {
       const term = (q.value || "").trim().toLowerCase();
-      cards.forEach(c => {
-        const hay = (c.getAttribute("data-name") || "").toLowerCase()
-                  + " " + (c.getAttribute("data-url") || "").toLowerCase()
-                  + " " + (c.innerText || "").toLowerCase();
-        c.style.display = (!term || hay.includes(term)) ? "" : "none";
+
+      cards.forEach(card => {
+        const haystack =
+          (card.getAttribute("data-name") || "").toLowerCase() + " " +
+          (card.getAttribute("data-url") || "").toLowerCase() + " " +
+          (card.innerText || "").toLowerCase();
+
+        card.style.display = (!term || haystack.includes(term)) ? "" : "none";
       });
     }
 
     q.addEventListener("input", applyFilter);
-    reset.addEventListener("click", () => { q.value=""; applyFilter(); q.focus(); });
+    reset.addEventListener("click", () => {
+      q.value = "";
+      applyFilter();
+      q.focus();
+    });
   </script>
 </body>
 </html>
