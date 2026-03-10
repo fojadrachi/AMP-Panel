@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="color-scheme" content="dark" />
   <title>fojadrachi.com — Services</title>
   <meta name="description" content="Service-Übersicht für fojadrachi.com Subdomains." />
@@ -10,9 +10,10 @@
   <style>
     :root{
       --bg:#070b14;
-      --bg-soft:#0d1322;
-      --panel:rgba(15,22,37,.72);
-      --panel-strong:rgba(18,26,44,.9);
+      --bg2:#0b1020;
+      --bg3:#0d1322;
+      --panel:#121a2c;
+      --panel2:#182235;
       --text:#edf3ff;
       --muted:#9eacc9;
       --line:rgba(255,255,255,.08);
@@ -22,39 +23,31 @@
       --accent2:#ff4fd8;
       --accent3:#3ee6a8;
 
-      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --shadow:0 18px 50px rgba(0,0,0,.35);
       --radius-xl:26px;
       --radius-lg:20px;
       --radius-md:14px;
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    html,body{height:100%}
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
 
     body{
       margin:0;
+      min-height:100vh;
       font:500 16px/1.55 Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(900px 500px at 15% -10%, rgba(122,162,255,.22), transparent 60%),
-        radial-gradient(700px 450px at 100% 0%, rgba(255,79,216,.15), transparent 58%),
-        radial-gradient(700px 500px at 50% 120%, rgba(62,230,168,.09), transparent 60%),
-        linear-gradient(180deg, #070b14 0%, #0b1020 45%, #0d1322 100%);
+        radial-gradient(900px 500px at 15% -10%, rgba(122,162,255,.16), transparent 60%),
+        radial-gradient(700px 450px at 100% 0%, rgba(255,79,216,.10), transparent 58%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 45%, var(--bg3) 100%);
       overflow-x:hidden;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background-image:
-        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
-      background-size:36px 36px;
-      mask-image:radial-gradient(circle at center, black 45%, transparent 95%);
-      opacity:.25;
     }
 
     a{
@@ -63,9 +56,10 @@
     }
 
     .wrap{
+      width:100%;
       max-width:1200px;
       margin:0 auto;
-      padding:28px 18px 70px;
+      padding:24px 18px 64px;
     }
 
     .hero{
@@ -74,34 +68,44 @@
       border:1px solid var(--line);
       border-radius:32px;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025)),
-        rgba(10,14,24,.72);
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
+        rgba(10,14,24,.88);
       box-shadow:var(--shadow);
-      backdrop-filter: blur(18px);
       overflow:hidden;
       margin-bottom:22px;
+      isolation:isolate;
     }
 
     .hero::before{
       content:"";
       position:absolute;
-      inset:auto -10% -35% auto;
-      width:360px;
-      height:360px;
-      border-radius:999px;
-      background:radial-gradient(circle, rgba(122,162,255,.22), transparent 65%);
+      right:-120px;
+      bottom:-120px;
+      width:320px;
+      height:320px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(122,162,255,.16), transparent 65%);
       pointer-events:none;
+      z-index:0;
     }
 
     .hero::after{
       content:"";
       position:absolute;
-      inset:-20% auto auto -10%;
-      width:280px;
-      height:280px;
-      border-radius:999px;
-      background:radial-gradient(circle, rgba(255,79,216,.14), transparent 68%);
+      left:-80px;
+      top:-80px;
+      width:240px;
+      height:240px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,79,216,.10), transparent 68%);
       pointer-events:none;
+      z-index:0;
+    }
+
+    .topbar,
+    .hero-content{
+      position:relative;
+      z-index:1;
     }
 
     .topbar{
@@ -110,8 +114,6 @@
       justify-content:space-between;
       gap:18px;
       margin-bottom:34px;
-      position:relative;
-      z-index:1;
     }
 
     .brand{
@@ -131,7 +133,7 @@
       box-shadow:
         0 14px 35px rgba(0,0,0,.35),
         0 0 0 1px rgba(255,255,255,.08) inset,
-        0 0 35px rgba(122,162,255,.24);
+        0 0 30px rgba(122,162,255,.18);
       flex:0 0 auto;
     }
 
@@ -140,6 +142,7 @@
       font-size:clamp(24px, 4vw, 38px);
       line-height:1.05;
       letter-spacing:-.03em;
+      word-break:break-word;
     }
 
     .sub{
@@ -158,8 +161,8 @@
       border:1px solid var(--line);
       background:rgba(255,255,255,.04);
       color:#dce8ff;
-      backdrop-filter: blur(10px);
       white-space:nowrap;
+      flex-shrink:0;
     }
 
     .dot{
@@ -169,17 +172,15 @@
       background:var(--accent3);
       box-shadow:
         0 0 0 4px rgba(62,230,168,.12),
-        0 0 18px rgba(62,230,168,.45);
+        0 0 18px rgba(62,230,168,.35);
       flex:0 0 auto;
     }
 
     .hero-content{
       display:grid;
-      grid-template-columns: 1.3fr .7fr;
+      grid-template-columns:1.3fr .7fr;
       gap:18px;
       align-items:end;
-      position:relative;
-      z-index:1;
     }
 
     .hero-text h2{
@@ -216,7 +217,7 @@
       background:rgba(255,255,255,.05);
       color:var(--text);
       transition:.18s ease;
-      box-shadow:0 10px 28px rgba(0,0,0,.25);
+      box-shadow:0 10px 24px rgba(0,0,0,.22);
     }
 
     .hero-btn:hover{
@@ -226,7 +227,7 @@
     }
 
     .hero-btn.primary{
-      background:linear-gradient(135deg, rgba(122,162,255,.22), rgba(255,79,216,.18));
+      background:linear-gradient(135deg, rgba(122,162,255,.20), rgba(255,79,216,.16));
       border-color:rgba(122,162,255,.28);
     }
 
@@ -240,6 +241,7 @@
     .search{
       position:relative;
       flex:1;
+      min-width:0;
     }
 
     .search input{
@@ -252,8 +254,7 @@
       color:var(--text);
       outline:none;
       box-shadow:var(--shadow);
-      backdrop-filter: blur(10px);
-      transition:border-color .18s ease, background .18s ease, transform .18s ease;
+      transition:border-color .18s ease, background .18s ease;
     }
 
     .search input:focus{
@@ -284,6 +285,7 @@
       cursor:pointer;
       transition:.18s ease;
       box-shadow:var(--shadow);
+      flex-shrink:0;
     }
 
     .btn:hover{
@@ -294,7 +296,7 @@
 
     .grid{
       display:grid;
-      grid-template-columns:repeat(12, 1fr);
+      grid-template-columns:repeat(12, minmax(0, 1fr));
       gap:16px;
     }
 
@@ -308,8 +310,8 @@
       border-radius:var(--radius-xl);
       border:1px solid var(--line);
       background:
-        radial-gradient(500px 180px at 0% 0%, rgba(122,162,255,.12), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        linear-gradient(135deg, rgba(255,255,255,.045), rgba(255,255,255,.02)),
+        linear-gradient(180deg, #162033 0%, #10192b 100%);
       box-shadow:var(--shadow);
       overflow:hidden;
       transition:transform .18s ease, border-color .18s ease, background .18s ease;
@@ -324,8 +326,8 @@
       width:190px;
       height:190px;
       border-radius:999px;
-      background:radial-gradient(circle, rgba(255,255,255,.08), transparent 70%);
-      opacity:.35;
+      background:radial-gradient(circle, rgba(122,162,255,.10), transparent 70%);
+      opacity:.55;
       z-index:0;
       pointer-events:none;
     }
@@ -334,8 +336,15 @@
       transform:translateY(-4px);
       border-color:rgba(255,255,255,.16);
       background:
-        radial-gradient(500px 180px at 0% 0%, rgba(122,162,255,.16), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+        linear-gradient(135deg, rgba(255,255,255,.055), rgba(255,255,255,.025)),
+        linear-gradient(180deg, #18253b 0%, #111b2d 100%);
+    }
+
+    .top,
+    .meta,
+    .linkrow{
+      position:relative;
+      z-index:1;
     }
 
     .top{
@@ -343,8 +352,6 @@
       align-items:flex-start;
       justify-content:space-between;
       gap:14px;
-      position:relative;
-      z-index:1;
     }
 
     .card-icon{
@@ -356,7 +363,8 @@
       border:1px solid rgba(255,255,255,.09);
       background:rgba(255,255,255,.05);
       margin-bottom:14px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+      font-size:20px;
     }
 
     .name{
@@ -401,8 +409,6 @@
       margin-top:16px;
       color:rgba(237,243,255,.72);
       font-size:13px;
-      position:relative;
-      z-index:1;
     }
 
     .meta .live-dot{
@@ -411,6 +417,7 @@
       border-radius:999px;
       background:var(--accent3);
       box-shadow:0 0 10px rgba(62,230,168,.35);
+      flex:0 0 auto;
     }
 
     .linkrow{
@@ -420,8 +427,6 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      position:relative;
-      z-index:1;
     }
 
     .url{
@@ -442,6 +447,7 @@
     .go{
       display:inline-flex;
       align-items:center;
+      justify-content:center;
       gap:8px;
       padding:11px 13px;
       border-radius:14px;
@@ -451,6 +457,7 @@
       font-size:13px;
       transition:.18s ease;
       white-space:nowrap;
+      min-width:102px;
     }
 
     .go:hover{
@@ -460,6 +467,7 @@
 
     .go svg{
       opacity:.9;
+      flex:0 0 auto;
     }
 
     footer{
@@ -503,9 +511,17 @@
     }
 
     @media (max-width: 700px){
+      .wrap{
+        padding:16px 14px 44px;
+      }
+
       .topbar{
         flex-direction:column;
         align-items:flex-start;
+      }
+
+      .status-pill{
+        white-space:normal;
       }
 
       .search-wrap{
@@ -528,8 +544,8 @@
     }
 
     @media (max-width: 520px){
-      .wrap{
-        padding:16px 14px 48px;
+      body{
+        font-size:15px;
       }
 
       .hero{
@@ -539,11 +555,54 @@
 
       .brand{
         align-items:flex-start;
+        gap:12px;
       }
 
       .logo{
         width:48px;
         height:48px;
+      }
+
+      .sub{
+        font-size:14px;
+      }
+
+      .hero-text h2{
+        font-size:clamp(26px, 8vw, 38px);
+      }
+
+      .hero-text p{
+        font-size:15px;
+      }
+
+      .hero-actions{
+        width:100%;
+      }
+
+      .hero-btn{
+        width:100%;
+      }
+
+      .card{
+        padding:16px;
+        border-radius:22px;
+      }
+
+      .top{
+        gap:12px;
+      }
+
+      .name{
+        font-size:18px;
+      }
+
+      .desc{
+        font-size:14px;
+        max-width:100%;
+      }
+
+      .meta{
+        font-size:12px;
       }
 
       .linkrow{
@@ -556,7 +615,7 @@
       }
 
       .go{
-        justify-content:center;
+        width:100%;
       }
     }
   </style>
@@ -619,12 +678,10 @@
           </div>
           <span class="tag panel">panel</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Verwaltung & Kontrolle</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://panel.fojadrachi.com">panel.fojadrachi.com</a>
           <a class="go" href="https://panel.fojadrachi.com" aria-label="AMP Panel öffnen">
@@ -637,7 +694,7 @@
         </div>
       </article>
 
-      <article class="card" data-name="status uptime monitoring wartung" data-url="https://status.fojadrachi.com">
+      <article class="card" data-name="status uptime monitoring wartung" data-url="https://status.fojadrachi.com/status/gs">
         <div class="top">
           <div>
             <div class="card-icon" aria-hidden="true">📈</div>
@@ -646,12 +703,10 @@
           </div>
           <span class="tag misc">status</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Monitoring & Übersicht</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://status.fojadrachi.com/status/gs">status.fojadrachi.com</a>
           <a class="go" href="https://status.fojadrachi.com/status/gs" aria-label="Status öffnen">
@@ -673,12 +728,10 @@
           </div>
           <span class="tag admin">admin</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Home-Server Verwaltung</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://home.fojadrachi.com">home.fojadrachi.com</a>
           <a class="go" href="https://home.fojadrachi.com" aria-label="CasaOS öffnen">
@@ -700,12 +753,10 @@
           </div>
           <span class="tag game">game</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Game-Service</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://mc.fojadrachi.com">mc.fojadrachi.com</a>
           <a class="go" href="https://mc.fojadrachi.com" aria-label="Minecraft öffnen">
@@ -727,12 +778,10 @@
           </div>
           <span class="tag misc">matchit</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Matchmaking</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://match.fojadrachi.com">match.fojadrachi.com</a>
           <a class="go" href="https://match.fojadrachi.com" aria-label="MatchIT öffnen">
@@ -745,7 +794,7 @@
         </div>
       </article>
 
-      <article class="card" data-name="docs dokumentation wiki howto linksammlung" data-url="https://docs.fojadrachi.com">
+      <article class="card" data-name="nextcloud dateien cloud storage" data-url="https://next.fojadrachi.com">
         <div class="top">
           <div>
             <div class="card-icon" aria-hidden="true">📚</div>
@@ -754,15 +803,13 @@
           </div>
           <span class="tag admin">docs</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Wissen & Hilfe</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://next.fojadrachi.com">next.fojadrachi.com</a>
-          <a class="go" href="https://next.fojadrachi.com" aria-label="Docs öffnen">
+          <a class="go" href="https://next.fojadrachi.com" aria-label="Nextcloud öffnen">
             Öffnen
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -781,12 +828,10 @@
           </div>
           <span class="tag misc">bot</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Discord Integration</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://dbot.fojadrachi.com">dbot.fojadrachi.com</a>
           <a class="go" href="https://dbot.fojadrachi.com" aria-label="Discord Bot öffnen">
@@ -808,12 +853,10 @@
           </div>
           <span class="tag admin">mail</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>E-Mail Verwaltung</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://mail.fojadrachi.com">mail.fojadrachi.com</a>
           <a class="go" href="https://mail.fojadrachi.com" aria-label="Mail öffnen">
@@ -835,12 +878,10 @@
           </div>
           <span class="tag misc">files</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Dateien & Downloads</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://mods.fojadrachi.com">mods.fojadrachi.com</a>
           <a class="go" href="https://mods.fojadrachi.com" aria-label="Mods öffnen">
@@ -862,12 +903,10 @@
           </div>
           <span class="tag panel">api</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Entwicklung & Backend</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://api.fojadrachi.com">api.fojadrachi.com</a>
           <a class="go" href="https://api.fojadrachi.com" aria-label="API öffnen">
@@ -889,12 +928,10 @@
           </div>
           <span class="tag admin">wiki</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Dokumentation</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://wiki.fojadrachi.com">wiki.fojadrachi.com</a>
           <a class="go" href="https://wiki.fojadrachi.com" aria-label="Wiki öffnen">
@@ -916,12 +953,10 @@
           </div>
           <span class="tag misc">stats</span>
         </div>
-
         <div class="meta">
           <span class="live-dot" aria-hidden="true"></span>
           <span>Daten & Analysen</span>
         </div>
-
         <div class="linkrow">
           <a class="url" href="https://stats.fojadrachi.com">stats.fojadrachi.com</a>
           <a class="go" href="https://stats.fojadrachi.com" aria-label="Stats öffnen">
@@ -937,12 +972,10 @@
     </section>
 
     <footer>
-      <div>© <span id="y"></span> fojadrachi.com</div>
       <div>
         <span class="muted">Brauchst du einen Gameserver?</span>
-        Frag einfach über
-        <a href="https://discord.gg/79XnsYqet3">Discord</a>
-        nach.
+         Schreib einfach an
+        <a href="mailto:admin@fojadrachi.com">admin@fojadrachi.com</a>.
       </div>
     </footer>
 
